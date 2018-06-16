@@ -32,4 +32,31 @@ componentWallMount() {
         this.setState({ entry: feed.entry});
       });
 }
+
+_handleEntryPress(entry){
+    selectEntry(entry);
+    this.props.navigation.navigate(EntryDetail);
+}
+render() {
+    const { entry } = this.state;
+
+    return (
+      <Container>
+          <Content>
+              { this.state.loading && <ActivityIndicator style={{margin: 20}}/> }
+              <List>
+                  {
+                    entry && entry.map((e, i) => {
+                      return (
+                        <ListItem key={i} onPress={this._handleEntryPress.bind(this, e)}>
+                          <Text>{e.title}</Text>
+                        </ListItem>
+                      );
+                    })
+                  }
+              </List>
+          </Content>
+      </Container>
+}
+  )
 }
