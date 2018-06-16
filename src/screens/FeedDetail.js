@@ -16,4 +16,20 @@ export default class FeedDetail extends React.Component{
         }
       }><Icon name='trash'/></Button>
     });
+
+constructor(props) {
+    super(props);
+    this.state = {
+        loading: false,
+        entry: null     
+    }
+  }
+componentWallMount() {
+    this.setState({ loading: true });
+    fetchFeed(this.props.screenProps.store.selectedFeed.url)
+    .then((feed) => {
+        this.setState({ loading: false });
+        this.setState({ entry: feed.entry});
+      });
+}
 }
